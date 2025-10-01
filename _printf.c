@@ -35,7 +35,10 @@ int _printf(const char *format, ...)
 		{
 			i++;
 			if (!format[i])
-				break;
+			{
+				va_end(ap);
+				return (counter);
+			}
 			j = 0;
 			while (typ[j].typ)
 			{
