@@ -18,6 +18,9 @@ int _printf(const char *format, ...)
 		{"%", _printperc},
 		{NULL, NULL}
 	};
+
+	if (!format)
+		return (0);
 	va_start(ap, format);
 	
 	while (format[i])
