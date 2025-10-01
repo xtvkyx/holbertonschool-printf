@@ -1,5 +1,5 @@
 /**
-* _printstr_ - produces string output
+* _printstr - produces string output
 * @ap: argument pointer
 * Description: a function that produces string output.
 * Return: the number of characters printed
