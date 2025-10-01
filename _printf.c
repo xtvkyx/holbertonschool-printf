@@ -10,7 +10,7 @@
 #include"main.h"
 int _printf(const char *format, ...)
 {
-	int i = 0, j, counter;
+	int i = 0, j, counter = 0;
 	va_list ap;
 	typs typ[] = {
 		{"s", _printstr},
@@ -20,17 +20,30 @@ int _printf(const char *format, ...)
 	};
 	va_start(ap, format);
 
-	counter = 0;
-	while (*format)
+	while (format[i])
 	{
-		while (format[i] != '%')
+		while (format[i] && format[i] != '%')
 		{
-			write (1, format[i], 1);
+			write (1, &format[i], 1);
+			i++;
+			counter++;
 		}
-		if (format [i + 1] == typ[i].f[0] && typ[1] == '\0')
-			typ[i].f(ap);
-		i++;
-		counter++;
+		if (format [i] == '%')
+		{
+			i++;
+			j = 0;
+			while(typ[j].typ)
+			{
+				if (format[i] == typ[j].typ[0])
+				{
+					counter += typ[j].f(ap);
+					break;
+				}
+			}
+			j++;
+		}
+		i++
 	}
+	va_end(ap);
 	return (counter);
 }
