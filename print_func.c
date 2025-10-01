@@ -8,7 +8,7 @@
 #include<stdio.h>
 #include<stdarg.h>
 #include"main.h"
-int _printstr_(va_list ap)
+int _printstr(va_list ap)
 {
 	int counter = 0;
 	char *str = va_arg(ap, char *);
