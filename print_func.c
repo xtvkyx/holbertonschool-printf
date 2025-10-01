@@ -20,7 +20,7 @@ int _printstr(va_list ap)
 		str++;
 		counter++;
 	}
-	return counter;
+	return (counter);
 }
 /**
 * _printchar - produces char output

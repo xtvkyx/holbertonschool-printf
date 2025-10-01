@@ -24,25 +24,31 @@ int _printf(const char *format, ...)
 	{
 		while (format[i] && format[i] != '%')
 		{
-			write (1, &format[i], 1);
+			write(1, &format[i], 1);
 			i++;
 			counter++;
 		}
-		if (format [i] == '%')
+		if (format[i] == '%')
 		{
 			i++;
 			j = 0;
-			while(typ[j].typ)
+			while (typ[j].typ)
 			{
 				if (format[i] == typ[j].typ[0])
 				{
 					counter += typ[j].f(ap);
 					break;
 				}
-			}
 			j++;
+			}
+			if (typ[j].typ == NULL)
+			{
+				write(1, &format[i], 1);
+				counter++;
+			}
+			
+			i++;
 		}
-		i++;
 	}
 	va_end(ap);
 	return (counter);
