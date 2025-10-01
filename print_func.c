@@ -12,8 +12,9 @@ int _printstr(va_list ap)
 {
 	int counter = 0;
 	char *str = va_arg(ap, char *);
+
 	if (str == NULL)
-		return (0);
+		str = "(null)";
 	while (*str)
 	{
 		write (1, str, 1);
