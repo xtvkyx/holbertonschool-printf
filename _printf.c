@@ -4,6 +4,7 @@
 #include <limits.h>
 
 /**
+<<<<<<< HEAD
  * print_number - prints an integer recursively
  * @n: the integer to print
  * Return: number of characters printed
@@ -44,6 +45,8 @@ int _printint(va_list ap)
 }
 
 /**
+=======
+>>>>>>> 711c7f5ac974bb78a3a5e2b73c288a30b696b3eb
  * print_normal - prints a single character from the format string
  * @format: the format string
  * @i: pointer to current index
@@ -86,6 +89,7 @@ int handle_format(char c, va_list ap)
 		{NULL, NULL}
 	};
 
+
 	for (j = 0; typ[j].typ; j++)
 	{
 		if (c == typ[j].typ[0])
@@ -106,6 +110,10 @@ int _printf(const char *format, ...)
 	va_list ap;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 711c7f5ac974bb78a3a5e2b73c288a30b696b3eb
 	if (format == NULL)
 		return (-1);
 
