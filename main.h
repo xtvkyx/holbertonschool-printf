@@ -3,20 +3,21 @@
 
 #include <stdarg.h>
 
+int _printstr(va_list ap);
+int _printchar(va_list ap);
+int _printperc(va_list ap);
+
+int _printf(const char *format, ...);
+
 /**
- * struct typ - Struct for format specifiers
- * @typ: The format type as a string
- * @f: Pointer to the function that handles this type
+ * struct types - Struct to map format specifiers to handler functions
+ * @typ: The format specifier character (as a string)
+ * @f: The function pointer to the handler
  */
-typedef struct typ
+typedef struct types
 {
 	char *typ;
 	int (*f)(va_list);
 } typs;
-
-int _printstr(va_list ap);
-int _printchar(va_list ap);
-int _printperc(va_list ap);
-int _printf(const char *format, ...);
 
 #endif
