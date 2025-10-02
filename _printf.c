@@ -54,15 +54,15 @@ int handle_format(char c, va_list ap)
 /**
  * _printf - prints formatted output
  * @format: format string
- * Return: number of characters printed
+ * Return: number of characters printed, or -1 on error
  */
 int _printf(const char *format, ...)
 {
 	int i = 0, counter = 0;
 	va_list ap;
 
-	if (!format)
-		return (0);
+	if (format == NULL)
+		return (-1);
 
 	va_start(ap, format);
 	while (format[i])
