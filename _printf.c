@@ -1,17 +1,35 @@
-#include <unistd.h>
-#include <stdarg.h>
 #include "main.h"
+#include <stdarg.h>
+#include <unistd.h>
 
-<<<<<<< HEAD
-/* helper to print normal characters */
-int print_normal(const char *format, int *i)
+/**
+ * print_normal - prints a normal string (no % inside)
+ * @str: string to print
+ *
+ * Return: number of characters printed
+ */
+int print_normal(const char *str)
 {
-	write(1, &format[*i], 1);
-	(*i)++;
-	return (1);
+	int count = 0;
+
+	if (!str)
+		return (0);
+
+	while (*str)
+	{
+		write(1, str, 1);
+		count++;
+		str++;
+	}
+	return (count);
 }
 
-/* helper to handle unknown format */
+/**
+ * handle_unknown - handles an unknown format specifier
+ * @c: character after %
+ *
+ * Return: number of characters printed
+ */
 int handle_unknown(char c)
 {
 	write(1, "%", 1);
@@ -20,77 +38,75 @@ int handle_unknown(char c)
 }
 
 /**
- * _printf - prints according to format
+ * handle_format - handles format specifiers
+ * @format: format character
+ * @args: list of arguments
+ *
+ * Return: number of characters printed
+ */
+int handle_format(char format, va_list args)
+{
+	char c;
+	char *s;
+	int count = 0;
+
+	if (format == 'c')
+	{
+		c = va_arg(args, int);
+		write(1, &c, 1);
+		return (1);
+	}
+	else if (format == 's')
+	{
+		s = va_arg(args, char *);
+		if (!s)
+			s = "(null)";
+		return (print_normal(s));
+	}
+	else if (format == '%')
+	{
+		write(1, "%", 1);
+		return (1);
+	}
+	return (handle_unknown(format));
+}
+
+/**
+ * _printf - custom printf function
+ * @format: format string
+ *
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, j, counter = 0;
-	va_list ap;
-	typs typ[] = {
-		{"s", _printstr},
-		{"c", _printchar},
-		{"%", _printperc},
-		{NULL, NULL}
-	};
+	va_list args;
+	int count = 0;
 
 	if (!format)
-		return (0);
-=======
-/**
- * _printf - prints formatted output
- * @format: format string
- * Return: number of characters printed, or -1 if format is NULL
- */
-int _printf(const char *format, ...)
-{
-	int i = 0, counter = 0;
-	va_list ap;
-
-	if (format == NULL)
 		return (-1);
->>>>>>> ed4fce4 (0)
 
-	va_start(ap, format);
+	va_start(args, format);
 
-	while (format[i])
+	while (*format)
 	{
-		if (format[i] != '%')
+		if (*format == '%')
 		{
-<<<<<<< HEAD
-			counter += print_normal(format, &i);
-			continue;
-=======
-			i++;
-			if (!format[i])
+			format++;
+			if (!*format)
 			{
-				va_end(ap);
-				return (-1);
+				va_end(args);
+				return (-1); /* case: single '%' at end */
 			}
-			counter += handle_format(format[i], ap);
-			i++;
->>>>>>> ed4fce4 (0)
+			count += handle_format(*format, args);
 		}
-
-		i++;
-		if (!format[i])
-			break;
-
-		j = 0;
-		while (typ[j].typ)
+		else
 		{
-			if (format[i] == typ[j].typ[0])
-			{
-				counter += typ[j].f(ap);
-				break;
-			}
-			j++;
+			write(1, format, 1);
+			count++;
 		}
-		if (!typ[j].typ)
-			counter += handle_unknown(format[i]);
-
-		i++;
+		format++;
 	}
 
-	va_end(ap);
-	return (counter);
+	va_end(args);
+	return (count);
 }
