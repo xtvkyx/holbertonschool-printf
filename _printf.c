@@ -39,6 +39,7 @@ int print_number(long int n)
 int _printint(va_list ap)
 {
 	long int n = va_arg(ap, int);
+
 	return (print_number(n));
 }
 
@@ -68,10 +69,10 @@ int handle_unknown(char c)
 }
 
 /**
- *  handle_format - handles valid format specifiers
- *  @c: the format character
- *  @ap: va_list of arguments
- *  Return: number of characters printed
+ * handle_format - handles valid format specifiers
+ * @c: the format character
+ * @ap: va_list of arguments
+ * Return: number of characters printed
  */
 int handle_format(char c, va_list ap)
 {
@@ -94,14 +95,16 @@ int handle_format(char c, va_list ap)
 }
 
 /**
- *  _printf - prints formatted output
- *  @format: format string
- *  Return: number of characters printed, or -1 on error
+ * _printf - prints formatted output
+ * @format: format string
+ * @...: optional arguments
+ * Return: number of characters printed, or -1 on error
  */
 int _printf(const char *format, ...)
 {
 	int i = 0, counter = 0;
 	va_list ap;
+
 
 	if (format == NULL)
 		return (-1);
