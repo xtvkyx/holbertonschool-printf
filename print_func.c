@@ -26,9 +26,11 @@ int _printstr(va_list ap)
 int _printchar(va_list ap)
 {
 	char c = va_arg(ap, int);
+	
 	write(1, &c, 1);
 	return (1);
 }
+
 
 /**
  * _printperc - prints a percent sign
