@@ -2,12 +2,7 @@
 #include <stdarg.h>
 #include "main.h"
 
-/**
- * print_normal - prints a normal character
- * @format: format string
- * @i: pointer to current index
- * Return: number of characters printed
- */
+/* helper to print normal characters */
 int print_normal(const char *format, int *i)
 {
 	write(1, &format[*i], 1);
@@ -15,11 +10,7 @@ int print_normal(const char *format, int *i)
 	return (1);
 }
 
-/**
- * handle_unknown - prints unknown format specifier
- * @c: unknown character
- * Return: number of characters printed
- */
+/* helper to handle unknown format */
 int handle_unknown(char c)
 {
 	write(1, "%", 1);
@@ -28,14 +19,12 @@ int handle_unknown(char c)
 }
 
 /**
- * handle_format - handles a format specifier
- * @c: format character
- * @ap: argument list
- * Return: number of characters printed
+ * _printf - prints according to format
  */
-int handle_format(char c, va_list ap)
+int _printf(const char *format, ...)
 {
-	int j;
+	int i = 0, j, counter = 0;
+	va_list ap;
 	typs typ[] = {
 		{"s", _printstr},
 		{"c", _printchar},
@@ -43,41 +32,39 @@ int handle_format(char c, va_list ap)
 		{NULL, NULL}
 	};
 
-	for (j = 0; typ[j].typ; j++)
-	{
-		if (c == typ[j].typ[0])
-			return (typ[j].f(ap));
-	}
-	return (handle_unknown(c));
-}
-
-/**
- * _printf - prints formatted output
- * @format: format string
- * Return: number of characters printed
- */
-int _printf(const char *format, ...)
-{
-	int i = 0, counter = 0;
-	va_list ap;
-
 	if (!format)
 		return (0);
 
 	va_start(ap, format);
+
 	while (format[i])
 	{
 		if (format[i] != '%')
-			counter += print_normal(format, &i);
-		else
 		{
-			i++;
-			if (!format[i])
-				break;
-			counter += handle_format(format[i], ap);
-			i++;
+			counter += print_normal(format, &i);
+			continue;
 		}
+
+		i++;
+		if (!format[i])
+			break;
+
+		j = 0;
+		while (typ[j].typ)
+		{
+			if (format[i] == typ[j].typ[0])
+			{
+				counter += typ[j].f(ap);
+				break;
+			}
+			j++;
+		}
+		if (!typ[j].typ)
+			counter += handle_unknown(format[i]);
+
+		i++;
 	}
+
 	va_end(ap);
 	return (counter);
 }
