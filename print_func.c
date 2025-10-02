@@ -9,6 +9,7 @@ int _printstr(va_list ap)
 	char *str = va_arg(ap, char *);
 	int counter = 0;
 
+	
 	if (!str)
 		str = "(null)";
 	while (*str)
@@ -26,6 +27,7 @@ int _printstr(va_list ap)
 int _printchar(va_list ap)
 {
 	char c = va_arg(ap, int);
+
 	
 	write(1, &c, 1);
 	return (1);
