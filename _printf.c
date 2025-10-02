@@ -1,6 +1,46 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include "main.h"
+#include <limits.h>
+
+/**
+ * print_number - prints an integer recursively
+ * @n: the integer to print
+ * Return: number of characters printed
+ */
+int print_number(long int n)
+{
+	int count = 0;
+	unsigned long int num;
+
+	if (n < 0)
+	{
+		count += _putchar('-');
+		num = -n;
+	}
+	else
+	{
+		num = n;
+	}
+
+	if (num / 10)
+		count += print_number(num / 10);
+
+	count += _putchar((num % 10) + '0');
+
+	return (count);
+}
+
+/**
+ * _printint - prints an integer argument
+ * @ap: va_list containing the integer
+ * Return: number of characters printed
+ */
+int _printint(va_list ap)
+{
+	long int n = va_arg(ap, int);
+	return (print_number(n));
+}
 
 /**
  * print_normal - prints a single character from the format string
@@ -28,10 +68,10 @@ int handle_unknown(char c)
 }
 
 /**
- * handle_format - handles valid format specifiers
- * @c: the format character
- * @ap: va_list of arguments
- * Return: number of characters printed
+ *  handle_format - handles valid format specifiers
+ *  @c: the format character
+ *  @ap: va_list of arguments
+ *  Return: number of characters printed
  */
 int handle_format(char c, va_list ap)
 {
@@ -40,6 +80,8 @@ int handle_format(char c, va_list ap)
 		{"s", _printstr},
 		{"c", _printchar},
 		{"%", _printperc},
+		{"d", _printint},
+		{"i", _printint},
 		{NULL, NULL}
 	};
 
@@ -52,9 +94,9 @@ int handle_format(char c, va_list ap)
 }
 
 /**
- * _printf - prints formatted output
- * @format: format string
- * Return: number of characters printed, or -1 on error
+ *  _printf - prints formatted output
+ *  @format: format string
+ *  Return: number of characters printed, or -1 on error
  */
 int _printf(const char *format, ...)
 {
@@ -84,31 +126,4 @@ int _printf(const char *format, ...)
 	}
 	va_end(ap);
 	return (counter);
-}
-/**
- * print_number - prints an intege
- * @n: the integer to print
- * Return: number of characters printed
- */
-int print_number(int n)
-{
-	int count = 0;
-	unsigned int num;
-
-	if (n < 0)
-	{
-		count += _putchar('-');
-		num = -n;
-	}
-	else
-	{
-		num = n; 
-	}
-
-	if (num / 10)
-		count += print_number(num / 10); 
-
-	count += _putchar(num % 10 + '0');
-
-	return (count);
 }
