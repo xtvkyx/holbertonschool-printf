@@ -12,7 +12,7 @@ int print_number(long int n)
 	unsigned long int num;
 
 
-	
+
 	if (n < 0)
 	{
 		count += _putchar('-');
@@ -41,6 +41,6 @@ int _printint(va_list ap)
 	long int n = va_arg(ap, int);
 
 
-	
+
 	return (print_number(n));
 }
