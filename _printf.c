@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include "main.h"
 
+<<<<<<< HEAD
 /* helper to print normal characters */
 int print_normal(const char *format, int *i)
 {
@@ -34,6 +35,20 @@ int _printf(const char *format, ...)
 
 	if (!format)
 		return (0);
+=======
+/**
+ * _printf - prints formatted output
+ * @format: format string
+ * Return: number of characters printed, or -1 if format is NULL
+ */
+int _printf(const char *format, ...)
+{
+	int i = 0, counter = 0;
+	va_list ap;
+
+	if (format == NULL)
+		return (-1);
+>>>>>>> ed4fce4 (0)
 
 	va_start(ap, format);
 
@@ -41,8 +56,19 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] != '%')
 		{
+<<<<<<< HEAD
 			counter += print_normal(format, &i);
 			continue;
+=======
+			i++;
+			if (!format[i])
+			{
+				va_end(ap);
+				return (-1);
+			}
+			counter += handle_format(format[i], ap);
+			i++;
+>>>>>>> ed4fce4 (0)
 		}
 
 		i++;
