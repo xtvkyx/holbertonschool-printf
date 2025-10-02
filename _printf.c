@@ -2,6 +2,12 @@
 #include <stdarg.h>
 #include "main.h"
 
+/**
+ * print_normal - prints a single character from the format string
+ * @format: the format string
+ * @i: pointer to current index
+ * Return: number of characters printed (always 1)
+ */
 int print_normal(const char *format, int *i)
 {
 	write(1, &format[*i], 1);
@@ -9,6 +15,11 @@ int print_normal(const char *format, int *i)
 	return (1);
 }
 
+/**
+ * handle_unknown - handles unknown format specifiers
+ * @c: the unknown character
+ * Return: number of characters printed
+ */
 int handle_unknown(char c)
 {
 	write(1, "%", 1);
@@ -16,6 +27,12 @@ int handle_unknown(char c)
 	return (2);
 }
 
+/**
+ * handle_format - handles valid format specifiers
+ * @c: the format character
+ * @ap: va_list of arguments
+ * Return: number of characters printed
+ */
 int handle_format(char c, va_list ap)
 {
 	int j;
@@ -29,13 +46,15 @@ int handle_format(char c, va_list ap)
 	for (j = 0; typ[j].typ; j++)
 	{
 		if (c == typ[j].typ[0])
-			return typ[j].f(ap);
+			return (typ[j].f(ap));
 	}
-	return handle_unknown(c);
+	return (handle_unknown(c));
 }
 
 /**
  * _printf - prints formatted output
+ * @format: format string
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
