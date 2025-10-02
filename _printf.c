@@ -46,7 +46,7 @@ int handle_format(char c, va_list ap)
 		{NULL, NULL}
 	};
 
-	
+
 	for (j = 0; typ[j].typ; j++)
 	{
 		if (c == typ[j].typ[0])
@@ -67,7 +67,7 @@ int _printf(const char *format, ...)
 	va_list ap;
 
 
-	
+
 	if (format == NULL)
 		return (-1);
 
