@@ -3,11 +3,15 @@
 
 #include <stdarg.h>
 
+int _putchar(char c);
+int _printf(const char *format, ...);
+
 int _printstr(va_list ap);
 int _printchar(va_list ap);
 int _printperc(va_list ap);
 
-int _printf(const char *format, ...);
+int _printint(va_list ap);
+int print_number(long int n);
 
 /**
  * struct types - Struct to map format specifiers to handler functions
