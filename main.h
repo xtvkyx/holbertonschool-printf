@@ -9,7 +9,7 @@ int print_number(long int n);
 int _putchar(char c);
 int _putchar(char c);
 int _printf(const char *format, ...);
-
+int _printbin(va_list ap);
 int _printstr(va_list ap);
 int _printchar(va_list ap);
 int _printperc(va_list ap);
