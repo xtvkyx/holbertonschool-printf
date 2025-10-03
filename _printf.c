@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include "main.h"
-#include <limits.h>
 
 /**
  * print_normal - prints a single character from the format string
@@ -44,9 +43,12 @@ int handle_format(char c, va_list ap)
 		{"d", _printint},
 		{"i", _printint},
 		{"b", _printbin},
+		{"u", _printunsigned},
+		{"o", _printoctal},
+		{"x", _printhex},
+		{"X", _printHEX},
 		{NULL, NULL}
 	};
-
 
 	for (j = 0; typ[j].typ; j++)
 	{
@@ -67,8 +69,6 @@ int _printf(const char *format, ...)
 	int i = 0, counter = 0;
 	va_list ap;
 
-
-
 	if (format == NULL)
 		return (-1);
 
@@ -85,7 +85,6 @@ int _printf(const char *format, ...)
 				va_end(ap);
 				return (-1);
 			}
-
 			counter += handle_format(format[i], ap);
 			i++;
 		}
