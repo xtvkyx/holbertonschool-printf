@@ -1,30 +1,31 @@
-#include "main.h"
+#include <unistd.h>
 #include <stdarg.h>
+#include "main.h"
 
 /**
  * print_number - prints an integer recursively
  * @n: the integer to print
  * Return: number of characters printed
  */
-int print_number(long int n)
+int print_number(int n)
 {
 	int count = 0;
-	unsigned long int num;
+	unsigned int num;
 
 	if (n < 0)
 	{
-		count += _putchar('-');
+		write(1, "-", 1);
+		count++;
 		num = -n;
 	}
 	else
-	{
 		num = n;
-	}
 
 	if (num / 10)
 		count += print_number(num / 10);
 
-	count += _putchar((num % 10) + '0');
+	write(1, &"0123456789"[num % 10], 1);
+	count++;
 
 	return (count);
 }
@@ -36,7 +37,7 @@ int print_number(long int n)
  */
 int _printint(va_list ap)
 {
-	long int n = va_arg(ap, int);
+	int n = va_arg(ap, int);
 
 	return (print_number(n));
 }
@@ -44,8 +45,8 @@ int _printint(va_list ap)
 /**
  * print_unsigned_base - prints an unsigned int in a given base
  * @n: the unsigned int number
- * @base: base to convert (e.g. 10, 8, 16)
- * @uppercase: flag to use uppercase letters for hex
+ * @base: base to convert (10, 8, 16)
+ * @uppercase: 1 for uppercase hex, 0 for lowercase
  * Return: number of characters printed
  */
 int print_unsigned_base(unsigned int n, int base, int uppercase)
@@ -56,7 +57,7 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 	int i = 0, count = 0;
 
 	if (n == 0)
-		return (_putchar('0'));
+		return (write(1, "0", 1));
 
 	while (n > 0)
 	{
@@ -68,13 +69,13 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 	}
 
 	while (i--)
-		count += _putchar(buffer[i]);
+		count += write(1, &buffer[i], 1);
 
 	return (count);
 }
 
 /**
- * _printunsigned - handles %u
+ * _printunsigned - prints %u
  */
 int _printunsigned(va_list ap)
 {
@@ -83,7 +84,7 @@ int _printunsigned(va_list ap)
 }
 
 /**
- * _printoctal - handles %o
+ * _printoctal - prints %o
  */
 int _printoctal(va_list ap)
 {
