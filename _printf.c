@@ -83,6 +83,7 @@ int handle_format(char c, va_list ap)
 		{"%", _printperc},
 		{"d", _printint},
 		{"i", _printint},
+		{"b", _printbin},
 		{NULL, NULL}
 	};
 
