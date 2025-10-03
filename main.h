@@ -2,31 +2,35 @@
 #define MAIN_H
 
 #include <stdarg.h>
-
-
-int _printint(va_list ap);
-int print_number(long int n);
-int _putchar(char c);
-int _putchar(char c);
-int _printf(const char *format, ...);
-int _printbin(va_list ap);
-int _printstr(va_list ap);
-int _printchar(va_list ap);
-int _printperc(va_list ap);
-int _printf(const char *format, ...);
-
-int _printint(va_list ap);
-int print_number(long int n);
+#include <unistd.h>
 
 /**
- * struct types - Struct to map format specifiers to handler functions
- * @typ: The format specifier character (as a string)
- * @f: The function pointer to the handler
+ * struct types - structure for specifiers and functions
+ * @id: specifier
+ * @f: function pointer
  */
 typedef struct types
 {
-	char *typ;
-	int (*f)(va_list);
+    char *id;
+    int (*f)(va_list);
 } typs;
+
+int _putchar(char c);
+int _printf(const char *format, ...);
+
+int _printstr(va_list list);
+int _printchar(va_list list);
+int _printperc(va_list list);
+
+int print_number(int n);
+int _printint(va_list list);
+
+int _printbin(va_list list);
+
+int _printunsigned(va_list list);
+int _printoctal(va_list list);
+int _printhex(va_list list);
+int _printHEX(va_list list);
+int print_unsigned_base(unsigned int n, int base, int uppercase);
 
 #endif
