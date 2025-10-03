@@ -1,5 +1,5 @@
-#include <unistd.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include "main.h"
 
 /**
@@ -50,9 +50,9 @@ int handle_format(char c, va_list ap)
 		{NULL, NULL}
 	};
 
-	for (j = 0; typ[j].typ; j++)
+	for (j = 0; typ[j].id; j++)
 	{
-		if (c == typ[j].typ[0])
+		if (c == typ[j].id[0])
 			return (typ[j].f(ap));
 	}
 	return (handle_unknown(c));
