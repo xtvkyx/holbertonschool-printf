@@ -23,8 +23,10 @@ int print_normal(const char *format, int *i)
 int handle_unknown(char c)
 {
     _putchar('%');
+
     if (c && c != ' ')
         _putchar(c);
+
     return (1 + (c && c != ' ' ? 1 : 0));
 }
 
@@ -78,43 +80,33 @@ int _printf(const char *format, ...)
         return (-1);
 
     va_start(ap, format);
-
-    while (format[i])
+while (format[i])
+{
+    if (format[i] != '%')
     {
-        if (format[i] != '%')
-        {
-            counter += print_normal(format, &i);
-            continue;
-        }
-
-        i++;
-
-        if (!format[i])
-        {
-            va_end(ap);
-            return (-1);
-        }
-
-        if (format[i] == ' ')
-        {
-            counter += _putchar('%');
-            counter += _putchar(' ');
-            i++;
-            continue;
-        }
-
-        flags = get_flags(format, &i);
-
-        if (format[i] == '%')
-        {
-            counter += _putchar('%');
-            i++;
-            continue;
-        }
-
-        counter += handle_format(format[i], ap, flags);
-        i++;
+        counter += print_normal(format, &i);
+        continue;
     }
+
+    i++;
+
+    if (!format[i])
+        return (-1);
+
+    flags = get_flags(format, &i);
+
+    if (format[i] == ' ' || format[i] == '%')
+    {
+        counter += _putchar('%');
+        if (format[i] == ' ')
+            counter += _putchar(' ');
+        i++;
+        continue;
+    }
+
+    counter += handle_format(format[i], ap, flags);
+    i++;
+}
 
     va_end(ap);
     _putchar(BUF_FLUSH);
