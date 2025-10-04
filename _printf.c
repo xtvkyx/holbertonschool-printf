@@ -80,33 +80,34 @@ int _printf(const char *format, ...)
         return (-1);
 
     va_start(ap, format);
- while (format[i])
+while (format[i])
 {
     if (format[i] != '%')
     {
         counter += print_normal(format, &i);
+        continue;
     }
-    else
+
+    i++;
+
+    if (!format[i])
+        return (-1);
+
+    flags = get_flags(format, &i);
+
+    if (format[i] == ' ' || format[i] == '%')
     {
-        i++;
-
-        if (!format[i])
-            return (-1);
-
-        flags = get_flags(format, &i);
-
+        counter += _putchar('%');
         if (format[i] == ' ')
-        {
-            counter += _putchar('%');
             counter += _putchar(' ');
-            i++;
-            continue;
-        }
-
-        counter += handle_format(format[i], ap, flags);
         i++;
+        continue;
     }
+
+    counter += handle_format(format[i], ap, flags);
+    i++;
 }
+
     va_end(ap);
     _putchar(BUF_FLUSH);
     return (counter);
