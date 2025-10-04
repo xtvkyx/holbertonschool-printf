@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * get_flags - checks for flag characters (+, space, #)
  * @format: format string
@@ -21,5 +22,9 @@ flags_t get_flags(const char *format, int *i)
 			break;
 		(*i)++;
 	}
+
+	if (flags.plus)
+		flags.space = 0;
+
 	return (flags);
 }
