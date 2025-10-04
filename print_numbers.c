@@ -33,6 +33,7 @@ int print_number(int n)
 /**
  * _printint - prints an integer argument
  * @ap: va_list containing the integer
+ * @flags: struct with format flags
  * Return: number of characters printed
  */
 int _printint(va_list ap, flags_t flags)
@@ -101,15 +102,20 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 
 /**
  * _printunsigned - prints %u
+ * @ap: va_list
+ * @flags: struct with flags (unused)
  */
-int _printunsigned(va_list ap)
+int _printunsigned(va_list ap, flags_t flags)
 {
 	unsigned int n = va_arg(ap, unsigned int);
+	(void)flags;
 	return (print_unsigned_base(n, 10, 0));
 }
 
 /**
  * _printoctal - prints %o
+ * @ap: va_list
+ * @flags: struct with flags (# for prefix)
  */
 int _printoctal(va_list ap, flags_t flags)
 {
@@ -122,4 +128,3 @@ int _printoctal(va_list ap, flags_t flags)
 	count += print_unsigned_base(n, 8, 0);
 	return (count);
 }
-
