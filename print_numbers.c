@@ -111,8 +111,15 @@ int _printunsigned(va_list ap)
 /**
  * _printoctal - prints %o
  */
-int _printoctal(va_list ap)
+int _printoctal(va_list ap, flags_t flags)
 {
 	unsigned int n = va_arg(ap, unsigned int);
-	return (print_unsigned_base(n, 8, 0));
+	int count = 0;
+
+	if (flags.hash && n != 0)
+		count += _putchar('0');
+
+	count += print_unsigned_base(n, 8, 0);
+	return (count);
 }
+
