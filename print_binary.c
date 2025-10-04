@@ -4,14 +4,17 @@
 /**
  * _printbin - prints an unsigned int as binary
  * @ap: va_list containing the unsigned int
+ * @flags: flag struct (unused)
  * Return: number of characters printed
  */
-int _printbin(va_list ap)
+int _printbin(va_list ap, flags_t flags)
 {
     unsigned int n = va_arg(ap, unsigned int);
     int count = 0;
     int bits[32];
     int i;
+
+    (void)flags;
 
     if (n == 0)
         return (_putchar('0'));
