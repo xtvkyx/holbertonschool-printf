@@ -10,7 +10,7 @@
  */
 int print_normal(const char *format, int *i)
 {
-	write(1, &format[*i], 1);
+	_putchar(format[*i]);
 	(*i)++;
 	return (1);
 }
@@ -22,8 +22,8 @@ int print_normal(const char *format, int *i)
  */
 int handle_unknown(char c)
 {
-	write(1, "%", 1);
-	write(1, &c, 1);
+	_putchar('%');
+	_putchar(c);
 	return (2);
 }
 
