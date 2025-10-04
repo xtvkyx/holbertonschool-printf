@@ -35,11 +35,32 @@ int print_number(int n)
  * @ap: va_list containing the integer
  * Return: number of characters printed
  */
-int _printint(va_list ap)
+int _printint(va_list ap, flags_t flags)
 {
 	int n = va_arg(ap, int);
+	char sign = 0;
+	unsigned int num;
+	int count = 0;
 
-	return (print_number(n));
+	if (n < 0)
+	{
+		sign = '-';
+		num = -n;
+	}
+	else
+	{
+		num = n;
+		if (flags.plus)
+			sign = '+';
+		else if (flags.space)
+			sign = ' ';
+	}
+
+	if (sign)
+		count += _putchar(sign);
+
+	count += print_number(num);
+	return (count);
 }
 
 /**
