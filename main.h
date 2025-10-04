@@ -4,7 +4,7 @@
 #define OUTPUT_BUF_SIZE 1024
 #define BUF_FLUSH -1
 #include <stdarg.h>
-#include <unistd.h>
+
 
 /**
  * struct types - structure for specifiers and functions
