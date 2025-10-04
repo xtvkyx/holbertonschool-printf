@@ -10,9 +10,9 @@
  */
 int print_normal(const char *format, int *i)
 {
-	_putchar(format[*i]);
-	(*i)++;
-	return (1);
+    _putchar(format[*i]);
+    (*i)++;
+    return (1);
 }
 
 /**
@@ -22,9 +22,12 @@ int print_normal(const char *format, int *i)
  */
 int handle_unknown(char c)
 {
-	_putchar('%');
-	_putchar(c);
-	return (2);
+    _putchar('%');
+
+    if (c && c != ' ')
+        _putchar(c);
+
+    return (1 + (c && c != ' ' ? 1 : 0));
 }
 
 /**
@@ -36,30 +39,29 @@ int handle_unknown(char c)
  */
 int handle_format(char c, va_list ap, flags_t flags)
 {
-	int j;
-	typs typ[] = {
-		{"s", _printstr},
-		{"S", _printS},
-		{"c", _printchar},
-		{"%", _printperc},
-		{"d", _printint},
-		{"i", _printint},
-		{"b", _printbin},
-		{"u", _printunsigned},
-		{"o", _printoctal},
-		{"x", _printhex},
-		{"X", _printHEX},
-		{"p", _printptr},
-		{NULL, NULL}
-	};
+    int j;
+    typs typ[] = {
+        {"s", _printstr},
+        {"S", _printS},
+        {"c", _printchar},
+        {"%", _printperc},
+        {"d", _printint},
+        {"i", _printint},
+        {"b", _printbin},
+        {"u", _printunsigned},
+        {"o", _printoctal},
+        {"x", _printhex},
+        {"X", _printHEX},
+        {"p", _printptr},
+        {NULL, NULL}
+    };
 
-	for (j = 0; typ[j].id; j++)
-	{
-		if (c == typ[j].id[0])
-			return (typ[j].f(ap, flags));
-	}
-
-	return (handle_unknown(c));
+    for (j = 0; typ[j].id; j++)
+    {
+        if (c == typ[j].id[0])
+            return (typ[j].f(ap, flags));
+    }
+    return (handle_unknown(c));
 }
 
 /**
@@ -70,36 +72,30 @@ int handle_format(char c, va_list ap, flags_t flags)
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, counter = 0;
-	va_list ap;
-	flags_t flags;
+    int i = 0, counter = 0;
+    va_list ap;
+    flags_t flags;
 
-	if (!format)
-		return (-1);
+    if (!format)
+        return (-1);
 
-	va_start(ap, format);
-	while (format[i])
-	{
-		if (format[i] != '%')
-		{
-			counter += print_normal(format, &i);
-		}
-		else
-		{
-			i++;
-			if (!format[i])
-				return (-1);
+    va_start(ap, format);
+    while (format[i])
+    {
+        if (format[i] != '%')
+            counter += print_normal(format, &i);
+        else
+        {
+            i++;
+            if (!format[i])
+                return (-1);
 
-			flags = get_flags(format, &i);
-
-			if (!format[i])
-				break;
-
-			counter += handle_format(format[i], ap, flags);
-			i++;
-		}
-	}
-	va_end(ap);
-	_putchar(BUF_FLUSH);
-	return (counter);
+            flags = get_flags(format, &i);
+            counter += handle_format(format[i], ap, flags);
+            i++;
+        }
+    }
+    va_end(ap);
+    _putchar(BUF_FLUSH);
+    return (counter);
 }
