@@ -1,6 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define OUTPUT_BUF_SIZE 1024
+#define BUF_FLUSH -1
 #include <stdarg.h>
 #include <unistd.h>
 
@@ -32,5 +34,4 @@ int _printoctal(va_list list);
 int _printhex(va_list list);
 int _printHEX(va_list list);
 int print_unsigned_base(unsigned int n, int base, int uppercase);
-
 #endif

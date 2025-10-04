@@ -16,7 +16,7 @@ int _printstr(va_list ap)
 		str = "(null)";
 	while (*str)
 	{
-		write(1, str, 1);
+		_putchar(*str);
 		str++;
 		counter++;
 	}
@@ -32,7 +32,7 @@ int _printchar(va_list ap)
 {
 	char c = va_arg(ap, int);
 
-	write(1, &c, 1);
+	_putchar(c);
 	return (1);
 }
 
@@ -44,6 +44,6 @@ int _printchar(va_list ap)
 int _printperc(va_list ap)
 {
 	(void)ap;
-	write(1, "%", 1);
+	_putchar('%');
 	return (1);
 }

@@ -14,7 +14,7 @@ int print_number(int n)
 
 	if (n < 0)
 	{
-		write(1, "-", 1);
+		_putchar('-');
 		count++;
 		num = -n;
 	}
@@ -24,7 +24,7 @@ int print_number(int n)
 	if (num / 10)
 		count += print_number(num / 10);
 
-	write(1, &"0123456789"[num % 10], 1);
+	_putchar((num % 10) + '0');
 	count++;
 
 	return (count);
@@ -57,7 +57,8 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 	int i = 0, count = 0;
 
 	if (n == 0)
-		return (write(1, "0", 1));
+		_putchar('0');
+		return (1);
 
 	while (n > 0)
 	{
@@ -69,7 +70,8 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 	}
 
 	while (i--)
-		count += write(1, &buffer[i], 1);
+		_putchar(buffer[i]);
+		count++;
 
 	return (count);
 }
