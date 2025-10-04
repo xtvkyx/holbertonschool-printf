@@ -57,9 +57,10 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 	int i = 0, count = 0;
 
 	if (n == 0)
+	{
 		_putchar('0');
 		return (1);
-
+	}
 	while (n > 0)
 	{
 		if (uppercase)
@@ -70,9 +71,10 @@ int print_unsigned_base(unsigned int n, int base, int uppercase)
 	}
 
 	while (i--)
+	{
 		_putchar(buffer[i]);
 		count++;
-
+	}
 	return (count);
 }
 
