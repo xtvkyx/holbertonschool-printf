@@ -95,25 +95,40 @@ while (format[i])
         va_end(ap);
         return (-1);
     }
-    
 
-    if (format[i] == ' ' && !format[i + 1])
+
+    flags = get_flags(format, &i);
+
+
+    if (format[i] == ' ' || format[i] == '%')
     {
         counter += _putchar('%');
-        counter += _putchar(' ');
-        i += 2;
-        continue;
-    }
 
-    if (format[i] == '%')
-    {
-        counter += _putchar('%');
+        if (!format[i])
+        {
+            va_end(ap);
+            return (-1);
+        }
+        
+
+        if (format[i] == ' ')
+        {
+            counter += _putchar(' ');
+        }
+        
+        
         i++;
         continue;
     }
 
-    flags = get_flags(format, &i);
-
+    if (!format[i] && i > 1 && format[i - 1] == ' ')
+    {
+        counter += _putchar('%');
+        counter += _putchar(' ');
+        
+        continue;
+    }
+    
     if (!format[i])
     {
         va_end(ap);
