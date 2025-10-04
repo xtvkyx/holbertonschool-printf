@@ -33,7 +33,7 @@ int handle_unknown(char c)
  * @ap: va_list of arguments
  * Return: number of characters printed
  */
-int handle_format(char c, va_list ap)
+int handle_format(char c, va_list ap, flags_t flags)
 {
 	int j;
 	typs typ[] = {
@@ -55,9 +55,9 @@ int handle_format(char c, va_list ap)
 	for (j = 0; typ[j].id; j++)
 	{
 		if (c == typ[j].id[0])
-			return (typ[j].f(ap));
+			return (typ[j].f(ap, flags));
 	}
-	return (handle_unknown(c));
+	return (0);
 }
 
 /**
@@ -71,7 +71,7 @@ int _printf(const char *format, ...)
 	int i = 0, counter = 0;
 	va_list ap;
 
-	if (format == NULL)
+	if (!format)
 		return (-1);
 
 	va_start(ap, format);
@@ -83,11 +83,10 @@ int _printf(const char *format, ...)
 		{
 			i++;
 			if (!format[i])
-			{
-				va_end(ap);
 				return (-1);
-			}
-			counter += handle_format(format[i], ap);
+
+			flags_t flags = get_flags(format, &i);
+			counter += handle_format(format[i], ap, flags);
 			i++;
 		}
 	}
