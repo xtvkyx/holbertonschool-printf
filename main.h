@@ -3,6 +3,7 @@
 
 #define OUTPUT_BUF_SIZE 1024
 #define BUF_FLUSH -1
+
 #include <stdarg.h>
 #include <unistd.h>
 
@@ -33,19 +34,19 @@ typedef struct types
 int _putchar(char c);
 int _printf(const char *format, ...);
 
-int _printstr(va_list list, flags_t flags);
-int _printchar(va_list list, flags_t flags);
-int _printperc(va_list list, flags_t flags);
-int _printint(va_list list, flags_t flags);
-int _printunsigned(va_list list, flags_t flags);
-int _printoctal(va_list list, flags_t flags);
-int _printhex(va_list list, flags_t flags);
-int _printHEX(va_list list, flags_t flags);
-int _printbin(va_list list, flags_t flags);
-int _printS(va_list list, flags_t flags);
-int _printptr(va_list list, flags_t flags);
+int _printstr(va_list ap, flags_t flags);
+int _printchar(va_list ap, flags_t flags);
+int _printperc(va_list ap, flags_t flags);
+int _printint(va_list ap, flags_t flags);
+int _printunsigned(va_list ap, flags_t flags);
+int _printoctal(va_list ap, flags_t flags);
+int _printhex(va_list ap, flags_t flags);
+int _printHEX(va_list ap, flags_t flags);
+int _printbin(va_list ap, flags_t flags);
+int _printS(va_list ap, flags_t flags);
+int _printptr(va_list ap, flags_t flags);
 
-int print_number(int n);
+int print_number(unsigned int num);
 int print_unsigned_base(unsigned int n, int base, int uppercase);
 
 flags_t get_flags(const char *format, int *i);
