@@ -58,6 +58,7 @@ int handle_format(char c, va_list ap, flags_t flags)
 		if (c == typ[j].id[0])
 			return (typ[j].f(ap, flags));
 	}
+
 	return (handle_unknown(c));
 }
 
@@ -80,7 +81,9 @@ int _printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] != '%')
+		{
 			counter += print_normal(format, &i);
+		}
 		else
 		{
 			i++;
@@ -88,6 +91,10 @@ int _printf(const char *format, ...)
 				return (-1);
 
 			flags = get_flags(format, &i);
+
+			if (!format[i])
+				break;
+
 			counter += handle_format(format[i], ap, flags);
 			i++;
 		}
