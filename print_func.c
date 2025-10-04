@@ -107,7 +107,7 @@ int _printptr(va_list ap)
 		_putchar('n');
 		_putchar('i');
 		_putchar('l');
-		_putchar('l');
+		_putchar(')');
 		return (5);
 	}
 
