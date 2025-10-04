@@ -31,6 +31,7 @@ int handle_unknown(char c)
  * handle_format - handles valid format specifiers
  * @c: the format character
  * @ap: va_list of arguments
+ * @flags: flags struct
  * Return: number of characters printed
  */
 int handle_format(char c, va_list ap, flags_t flags)
@@ -57,7 +58,7 @@ int handle_format(char c, va_list ap, flags_t flags)
 		if (c == typ[j].id[0])
 			return (typ[j].f(ap, flags));
 	}
-	return (0);
+	return (handle_unknown(c));
 }
 
 /**
@@ -70,6 +71,7 @@ int _printf(const char *format, ...)
 {
 	int i = 0, counter = 0;
 	va_list ap;
+	flags_t flags; /* Declare before code — C90 compliant */
 
 	if (!format)
 		return (-1);
@@ -85,7 +87,7 @@ int _printf(const char *format, ...)
 			if (!format[i])
 				return (-1);
 
-			flags_t flags = get_flags(format, &i);
+			flags = get_flags(format, &i);
 			counter += handle_format(format[i], ap, flags);
 			i++;
 		}
