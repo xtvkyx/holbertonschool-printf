@@ -71,7 +71,7 @@ int _printf(const char *format, ...)
 {
 	int i = 0, counter = 0;
 	va_list ap;
-	flags_t flags; /* Declare before code — C90 compliant */
+	flags_t flags;
 
 	if (!format)
 		return (-1);
