@@ -38,6 +38,7 @@ int handle_format(char c, va_list ap)
 	int j;
 	typs typ[] = {
 		{"s", _printstr},
+		{"S", _printS},
 		{"c", _printchar},
 		{"%", _printperc},
 		{"d", _printint},

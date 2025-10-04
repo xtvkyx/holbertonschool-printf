@@ -47,3 +47,41 @@ int _printperc(va_list ap)
 	_putchar('%');
 	return (1);
 }
+
+/**
+ * _printS - prints a single char from va_list
+ * @ap: A va_list containing the character to print.
+ * Return: count
+ */
+#include <stdarg.h>
+#include "main.h"
+
+int _printS(va_list ap)
+{
+	char *str = va_arg(ap, char *);
+	int i = 0, count = 0;
+	char hex[] = "0123456789ABCDEF";
+
+	if (!str)
+		str = "(null)";
+
+	while (str[i])
+	{
+		if ((str[i] > 0 && str[i] < 32) || str[i] >= 127)
+		{
+			_putchar('\\');
+			_putchar('x');
+			_putchar(hex[(str[i] / 16) % 16]);
+			_putchar(hex[str[i] % 16]);
+			count += 4;
+		}
+		else
+		{
+			_putchar(str[i]);
+			count++;
+		}
+		i++;
+	}
+
+	return (count);
+}

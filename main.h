@@ -34,4 +34,5 @@ int _printoctal(va_list list);
 int _printhex(va_list list);
 int _printHEX(va_list list);
 int print_unsigned_base(unsigned int n, int base, int uppercase);
+int _printS(va_list list);
 #endif
