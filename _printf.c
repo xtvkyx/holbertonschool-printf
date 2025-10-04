@@ -48,6 +48,7 @@ int handle_format(char c, va_list ap)
 		{"o", _printoctal},
 		{"x", _printhex},
 		{"X", _printHEX},
+		{"p", _printptr},
 		{NULL, NULL}
 	};
 

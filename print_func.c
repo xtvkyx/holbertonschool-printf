@@ -85,3 +85,50 @@ int _printS(va_list ap)
 
 	return (count);
 }
+
+#include <stdarg.h>
+#include "main.h"
+
+/**
+* _printptr - prints a pointer address in hexadecimal
+* @ap: va_list containing the pointer
+* Return: number of characters printed
+*/
+int _printptr(va_list ap)
+{
+	unsigned long ptr = (unsigned long)va_arg(ap, void *);
+	char hex[] = "0123456789abcdef";
+	char buffer[32];
+	int i = 0, count = 0;
+
+	if (!ptr)
+	{
+		_putchar('(');
+		_putchar('n');
+		_putchar('i');
+		_putchar('l');
+		_putchar('l');
+		return (5);
+	}
+
+/* Convert pointer to hex string in buffer (reversed) */
+	while (ptr > 0)
+	{
+		buffer[i++] = hex[ptr % 16];
+		ptr /= 16;
+	}
+
+/* Print 0x prefix */
+	_putchar('0');
+	_putchar('x');
+	count += 2;
+
+/* Print hex digits in correct order */
+	while (i--)
+	{
+		_putchar(buffer[i]);
+		count++;
+	}
+
+	return (count);
+}
